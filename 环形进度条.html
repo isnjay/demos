@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>环形进度条</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        #num{
+            position: relative;           
+        }
+        .show {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            text-align: center;
+            border-radius: 50%;
+            background-color: #faf60a;
+            margin-top: 23%;
+            left: 40%;
+            clip: rect(0,auto,170px,0);
+        }
+        .left,.right {
+            top: 0;
+            left: 0;
+            position: absolute;
+            height: 200px;
+            width: 200px;
+            border-radius: 50%;
+            background-color: #bdbcbc;
+        }
+        .right {
+            transition-delay: 0.5s;
+            transition-duration:0.5s;            
+        }
+        .left {            
+            transition: all 0.5s ease-in; /* 动画过渡效果 */
+        }
+        .pie-left,.pie-right {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 200px;
+            width: 200px;
+            border-radius: 50%;
+        }
+        .pie-left,.left {
+            clip: rect(0,100px,170px,0);
+        }
+        .pie-right,.right {
+            clip: rect(0,auto,170px,100px);
+        }
+        .content {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            width: 150px;
+            height: 150px;
+            font-size: 80px;
+            background-color: #fff;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 150px;
+            animation-duration:1s;                     
+        }
+        .press {
+            position: absolute;
+            margin-left: 40%;
+            margin-top: 38%;
+        }
+        #input_add {
+            height: 30px;
+            width: 250px;
+            margin: 10px 0;
+            font-size: 20px;
+        }
+        .btn {
+            width: 40px;
+            height: 30px;
+            font-size: 15px;
+            border: 1px solid #000;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="num">
+        <div class="show">
+            <span class="pie-right">
+                <span class="right"></span>
+            </span>
+            <span class="pie-left">
+                <span class="left"></span> 
+            </span>               
+            <span class="content"></span>            
+        </div>
+        <div class="press">   
+            <input type="text" name="input_add" id="input_add" placeholder="请输入一个小于1000的数字" />
+            <button class="btn" onclick="sure()">确认</button>
+        </div> 
+    </div>
+    <script type="text/javascript">
+        function sure(){ 
+            var input_value = document.getElementById('input_add');
+            var numshow = document.getElementsByClassName("content")[0];
+            var input_content = Number(input_value.value);
+            var rightstyle = document.getElementsByClassName("right")[0];
+            console.log(rightstyle);
+            var leftstyle = document.getElementsByClassName("left")[0];
+            if(input_content < 500){                
+                leftstyle.style.cssText = 'transform: rotate(' + input_content*0.27 + "deg)";
+            } else {                
+                leftstyle.style.cssText = 'transform: rotate(180deg)';
+                rightstyle.style.cssText = 'transform: rotate('+ (input_content-500)*0.27 + "deg)" ;
+            }
+            numshow.innerHTML = input_content;                   
+        }
+       
+    </script>
+</body>
+</html>
+
